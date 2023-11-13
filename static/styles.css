@@ -1,0 +1,521 @@
+@media screen and (orientation: landscape) {
+  /* Réinitialisation des styles par défaut */
+  body, h1, p, form, ul, li {
+    margin: 0;
+    padding: 0;
+    /*background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);*/
+  }
+
+  /* Styles de base pour le corps de la page */
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    zoom: 180%;
+  }
+
+  /* Styles pour le titre h1 */
+  h1 {
+    font-size: 32px;
+    margin-top: 30px;
+    background-color: #007bff; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    padding: 10px; /* Espace intérieur pour le texte */
+    display: inline-block; /* Pour que le fond s'adapte à la largeur du texte */
+    transition: transform .2s;
+
+  }
+
+  h1:hover {
+    transition: transform .2s;
+    transform: scale(1.5);
+  }
+
+  /* Styles pour le message de bienvenue */
+  p {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  /* Styles pour les boutons */
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Styles pour les formulaires */
+  form {
+    margin: 20px 0;
+  }
+
+  /* Styles pour les labels */
+  label {
+    font-size: 16px;
+  }
+
+  /* Styles pour les champs de saisie */
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  /* Styles pour les tableaux */
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Styles pour les cellules du tableau */
+  th, td {
+    padding: 10px;
+  }
+
+  /* Styles pour les boutons de déconnexion */
+  a {
+    display: block;
+    margin-top: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  /* Styles pour les boutons du modal */
+  .btn-secondary {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+  }
+
+  /* Styles pour les éléments en cours de glisser-déposer */
+  td[ondrop], td[ondragover] {
+    border: 2px dashed #007bff;
+  }
+
+  /* Styles pour les champs de saisie et les combobox */
+  input[type="text"],
+  input[type="number"],
+  select {
+      max-width: 300px; /* Définissez la largeur maximale que vous souhaitez */
+      width: 100%; /* Gardez la largeur à 100% pour une meilleure adaptation */
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 5px;
+  }
+
+  /* Styles pour les colonnes du tableau */
+  th, td {
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto; /* Barre de défilement vertical si nécessaire */
+
+    white-space: nowrap;
+    max-width: 10px; /* Largeur initiale (très petite) */
+    transition: max-width 0.3s; /* Ajoute une transition fluide */
+
+    /* Style du curseur au survol */
+    cursor: pointer;
+  }
+
+  /* Augmentez la largeur au survol */
+  th:hover, td:hover {
+    max-width: 150px; /* Largeur au survol (ajustez selon vos besoins) */
+  }
+
+.litab {
+  max-height: 20px;
+  overflow: hidden;
+}
+
+.litab:hover {
+  max-height: 100%;
+  white-space: nowrap;
+}
+
+  /* Styles pour le conteneur du tableau */
+  .table-container {
+    max-width: 800px; /* Définissez la largeur maximale que vous souhaitez */
+    margin: 0 auto; /* Pour centrer le conteneur horizontalement */
+    overflow-x: auto; /* Ajoute une barre de défilement horizontale si nécessaire */
+  }
+
+  /* Styles pour le tableau à l'intérieur du conteneur */
+  table {
+    width: 100%; /* Remarquez que le tableau occupe 100% de la largeur du conteneur */
+  }
+
+
+  /* Styles pour une nouvelle tache */
+  .newtask {
+    padding: 0;
+    overflow-y: hidden; /* Barre de défilement vertical si nécessaire */
+
+    white-space: nowrap;
+    max-height: 52px; /* Largeur initiale (très petite) */
+    transition: max-height 0.3s; /* Ajoute une transition fluide */
+
+    /* Style du curseur au survol */
+    cursor: pointer;
+  }
+
+  /* Augmentez la largeur au survol */
+  .newtask:hover {
+    max-height: 400px; /* Largeur au survol (ajustez selon vos besoins) */
+  }
+
+  /* Styles pour la zone d'archivage */
+  .archive-zone {
+    background-color: #f0f0f0; /* Couleur de fond gris clair */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .archive-zone h2 {
+    color: #36393f;
+    font-size: 24px;
+  }
+
+  /* Styles pour la liste d'archivage */
+  #archive-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  #archive-list li {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #archive-list li:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Styles pour les étiquettes "label" */
+  label {
+    font-weight: bold;
+  }
+
+  /* Styles pour les éléments "select" */
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  /* Styles pour les zones de texte "textarea" */
+  textarea {
+    width: 25%;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  /* Styles pour le bouton "submit" */
+  input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .features-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .feature {
+    width: 50%; /* Adjust as needed, leaving space for margins */
+    margin-right: 2%; /* Adjust as needed */
+  }
+
+  /* Clearfix to prevent last item from being pushed down */
+  .features-wrap::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  /* Styles de base pour le corps de la page */
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    justify-content: center;
+    max-width: 500px;
+    zoom: 200%;
+  }
+
+  /* Styles pour le titre h1 */
+  h1 {
+    font-size: 32px;
+    margin-top: 30px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    display: inline-block;
+  }
+
+  /* Styles pour le message de bienvenue */
+  p {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  /* Styles pour les boutons */
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Styles pour les formulaires */
+  form {
+    margin: 20px 0;
+  }
+
+  /* Styles pour les labels */
+  label {
+    font-size: 16px;
+  }
+
+  /* Styles pour les champs de saisie */
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  /* Styles pour les tableaux */
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Styles pour les cellules du tableau */
+  th, td {
+    padding: 10px;
+    overflow-x: auto;
+  }
+
+  /* Styles pour les boutons de déconnexion */
+  a {
+    display: block;
+    margin-top: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  /* Styles pour les modaux */
+  .modal-dialog {
+    max-width: 600px;
+    margin: 30px auto;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-title {
+    font-size: 24px;
+  }
+
+  /* Styles pour les boutons du modal */
+  .btn-secondary {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+  }
+
+  /* Styles pour les éléments en cours de glisser-déposer */
+  td[ondrop], td[ondragover] {
+    border: 2px dashed #007bff;
+  }
+
+  /* Styles pour les champs de saisie et les combobox */
+  input[type="text"],
+  input[type="number"],
+  select {
+    max-width: 300px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  /* Styles pour les colonnes du tableau */
+  th, td {
+    padding: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 10px;
+    transition: max-width 0.3s;
+    cursor: pointer;
+  }
+
+  /* Augmentez la largeur au survol */
+  th:hover, td:hover {
+    max-width: 150px;
+  }
+
+  /* Styles pour le conteneur du tableau */
+  .table-container {
+    max-width: 400px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+
+  /* Styles pour le tableau à l'intérieur du conteneur */
+  table {
+    width: 100%;
+  }
+
+  /* Styles pour une nouvelle tâche */
+  .newtask {
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    max-height: 52px;
+    transition: max-height 0.3s;
+    cursor: pointer;
+  }
+
+  /* Augmentez la hauteur au survol */
+  .newtask:hover {
+    max-height: 400px;
+  }
+
+  /* Styles pour la zone d'archivage */
+  .archive-zone {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .archive-zone h2 {
+    color: #36393f;
+    font-size: 24px;
+  }
+
+  /* Styles pour la liste d'archivage */
+  #archive-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  #archive-list li {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #archive-list li:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Styles pour les étiquettes "label" */
+  label {
+    font-weight: bold;
+  }
+
+  /* Styles pour les éléments "select" */
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  /* Styles pour les zones de texte "textarea" */
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  /* Styles pour le bouton "submit" */
+  input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+/*
+  .features-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+  }
+
+  .feature {
+    width: 40%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+
+  }
+
+   Clearfix to prevent last item from being pushed down 
+  .features-wrap::after {
+    content: "";
+    display: table;
+    clear: both;
+  }*/
+ 
+}

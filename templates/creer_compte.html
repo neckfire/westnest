@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>WESTNEST</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>WESTNEST</h1>
+						<p></p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continuer</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="/" class="logo">WESTNEST</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="creer_compte">Créez votre compte</a></li>
+							<li><a href="connexion">Connectez vous</a></li>
+
+							<!--<li><a href="https://nfteam.netlify.app">NFT WEBSITE</a></li>-->
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="htps://github.com/Neckfire" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<!--<span class="date">December, 2022</span>-->
+									<h2><a href="#">Créez votre<br />
+										compte</a></h2>
+										<form method="post">
+											<label for="nom_utilisateur">Nom d'utilisateur:</label>
+											<input type="text" name="nom_utilisateur" required><br><br>
+									
+											<label for="email">Email:</label>
+											<input type="email" name="email" required><br><br>
+									
+											<label for="mot_de_passe">Mot de passe:</label>
+											<input type="password" name="mot_de_passe" required><br><br>
+									
+											<label for="id_subgroup">Sous-groupe:</label>
+											<select name="id_subgroup" required>
+												{% for subgroup in subgroups %}
+													<option value="{{ subgroup[0] }}">{{ subgroup[1] }}</option>
+												{% endfor %}
+											</select><br><br>
+									
+											<input type="submit" value="Créer un compte">
+										</form>
+							</article>
+						<!-- Footer -->
+							
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+
+						<section class="split contact">
+
+							<section>
+								<h3>Email</h3>
+								<p><a href="mailto:nfteamhead@proton.me">nfteamhead@proton.me</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="https://www.linkedin.com/in/marc-garnier-de-boisgrollier-5a6893258/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="htps://github.com/Neckfire" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+			<script>
+				// Pour le drag & drop
+				function drag(event) {
+					event.dataTransfer.setData("text", event.target.id);
+				}
+			
+				function allowDrop(event) {
+					event.preventDefault();
+				}
+			
+				function drop(event, etat) {
+					event.preventDefault();
+					var tacheId = event.dataTransfer.getData("text");
+					var tacheElement = document.getElementById(tacheId);
+			
+					// Obtenez l'ID de la tâche à partir de l'élément glissé
+					var taskId = tacheId.split("_")[1];
+					console.log("Task ID:", taskId);
+					console.log("New State:", etat);
+					// Vérifiez si la zone est une zone d'archivage
+					if (event.target.classList.contains("archive-zone")) {
+						console.log("Archiving task:", taskId);
+						var xhr = new XMLHttpRequest();
+					xhr.open("POST", "/archive_task", true);
+					xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		
+					// Envoyez l'ID de la tâche à archiver
+					var data = JSON.stringify({ task_id: taskId });
+					xhr.send(data);
+		
+					// Supprimez la tâche de l'affichage
+					tacheElement.remove();
+					window.location.reload();
+					console.log("test");
+		
+					} else {
+						// Créez une requête AJAX pour mettre à jour l'état de la tâche dans la base de données
+						var xhr = new XMLHttpRequest();
+						xhr.open("POST", "/update_task_state", true);
+						xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+						console.log("test2");
+		
+						// Envoyez les données de mise à jour (ID de la tâche et nouvel état)
+						var data = JSON.stringify({ task_id: taskId, new_state: etat });
+						xhr.send(data);
+			
+						// Mettez à jour l'affichage de la colonne
+						var colonne = event.target;
+						colonne.querySelector("ul").appendChild(tacheElement);
+						tacheElement.remove();
+						window.location.reload();
+		
+					}
+				}
+				
+			</script>
+
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Créer un compte</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <h1>Créer un compte</h1>
+    <form method="post">
+        <label for="nom_utilisateur">Nom d'utilisateur:</label>
+        <input type="text" name="nom_utilisateur" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br><br>
+
+        <label for="mot_de_passe">Mot de passe:</label>
+        <input type="password" name="mot_de_passe" required><br><br>
+
+        <label for="id_subgroup">Sous-groupe:</label>
+        <select name="id_subgroup" required>
+            {% for subgroup in subgroups %}
+                <option value="{{ subgroup[0] }}">{{ subgroup[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Créer un compte">
+    </form>
+</body>
+</html>

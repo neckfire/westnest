@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>WESTNEST</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>WESTNEST</h1>
+						<p></p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continuer</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="/" class="logo">WESTNEST</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="/">Acceuil</a></li>
+							<li><a href="commande">Commander un service</a></li>
+							<li><a href="editer_profil">Profil</a></li>
+							{% if user_id == 1 %}
+							<li><a href="{{ url_for('deconnexion_generale') }}">Déconnexion générale</a></li>
+							{% endif %}
+
+							<!--<li><a href="https://nfteam.netlify.app">NFT WEBSITE</a></li>-->
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="htps://github.com/Neckfire" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						{% if utilisateur %}
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<!--<span class="date">December, 2022</span>-->
+									<h2><a href="#">Ajouter une nouvelle<br />
+										tâche</a></h2>
+										<form method="post" action="{{ url_for('ajouter_tache') }}" onsubmit="setDefaultDate()">
+											<label for="tache">Tâche :</label>
+											<input type="text" name="tache" required><br><br>
+											<label for="etat">État :</label>
+											<select name="etat" required>
+												<option value="A faire">A faire</option>
+												<option value="En cours">En cours</option>
+												<option value="Finie">Finie</option>
+											</select><br><br>
+											<label for="priorite">Priorité :</label>
+											<input type="number" name="priorite" required><br><br>
+											<label for="deadline">Date d'échéance (si applicable) :</label>
+											<input type="date" name="deadline"><br><br> <!-- Ajout du champ de date d'échéance -->
+											<input type="submit" value="Ajouter">
+										</form>
+							</article>
+							<article class="post featured">
+								{% if a_faire or en_cours or finies %}
+    <h2>Vos tâches :</h2>
+    <div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>A faire</th>
+                <th>En cours</th>
+                <th>Finies</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td ondrop="drop(event, 'A faire')" ondragover="allowDrop(event)">
+                    <ul>
+                        {% for tache in a_faire %}
+                            <li class="litab" draggable="true" ondragstart="drag(event)" id="tache_{{ tache[0] }}">
+                                {{ tache[1] }} (Priorité : {{ tache[3] }}, {% if tache[5] and not tache[5] == "0" %} type de service : {{tache[5]}},{% endif %} Date d'échéance : {{ tache[4] or 'Aucune' }})
+                                <!-- Bouton pour afficher le modal --
+                                <button type="button" class="btn btn-primary" onclick="ouvrirModal('{{ tache[0] }}')">
+                                    Voir les détails
+                                </button>-->
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td ondrop="drop(event, 'En cours')" ondragover="allowDrop(event)">
+                    <ul>
+                        {% for tache in en_cours %}
+                            <li class="litab" draggable="true" ondragstart="drag(event)" id="tache_{{ tache[0] }}">
+                                {{ tache[1] }} (Priorité : {{ tache[3] }}, {% if tache[5] and not tache[5] == "0" %} type de service : {{tache[5]}},{% endif %} Date d'échéance : {{ tache[4] or 'Aucune' }})
+                                <!-- Bouton pour afficher le modal 
+                                <button type="button" class="btn btn-primary" onclick="ouvrirModal('{{ tache[0] }}')">
+                                    Voir les détails
+                                </button>-->
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td ondrop="drop(event, 'Finie')" ondragover="allowDrop(event)">
+                    <ul>
+                        {% for tache in finies %}
+                            <li class="litab" draggable="true" ondragstart="drag(event)" id="tache_{{ tache[0] }}">
+                                {{ tache[1] }} (Priorité : {{ tache[3] }}, {% if tache[5] and not tache[5] == "0" %} type de service : {{tache[5]}},{% endif %} Date d'échéance : {{ tache[4] or 'Aucune' }})
+                                <!-- Bouton pour afficher le modal 
+                                <button type="button" class="btn btn-primary" onclick="ouvrirModal('{{ tache[0] }}')">
+                                    Voir les détails
+                                </button>-->
+                                
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div id="archive" class="colonne" ondrop="drop(event, 'archive')" ondragover="allowDrop(event)">
+        <h2>Glissez ici pour archiver</h2>
+        <ul id="archive-list" class="droppable"></ul>
+      </div>
+    {% else %}
+        <p>Aucune tâche n'a été trouvée.</p>
+    {% endif %}	
+							</article>
+							{% else %}
+							<article class="post featured">
+							<p>Communiquer et partager au sein de l'entreprise avec WESTNEST</p>
+							<a href="{{ url_for('connexion') }}">Se connecter</a>
+							</article>
+							{% endif %}
+						<!-- Posts -->
+							<section class="posts">
+								<article>
+									<header>
+										<h2>Comment WestNest fonctionne-t-il ?</a></h2>
+									</header>
+									<a href="" class="image fit"><svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+										<g fill="none" fill-rule="evenodd">
+											<path d="M48.066 61.627c6.628 0 10.087-16.79 10.087-23.418 0-6.627-5.025-9.209-11.652-9.209C39.874 29 24 42.507 24 49.135c0 6.627 17.439 12.492 24.066 12.492z" fill-opacity=".24" fill="#A0A6EE" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #121864;"></path>
+											<path d="M26 54l28-28" stroke="#838DEA" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #7da8e9;"></path>
+											<path d="M26 46l20-20M26 38l12-12M26 30l4-4M34 54l20-20M42 54l12-12" stroke="#767DE1" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #759fe1;"></path>
+											<path d="M50 54l4-4" stroke="#838DEA" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #7da8e9;"></path>
+										</g>
+									</svg></a>
+									<p>WestNest utilise un système de gestion de projet avancé. Les utilisateurs se connectent pour accéder à leur liste de tâches personnalisée, réparties équitablement parmi les membres du sous-groupe. L'onglet "Commande" facilite les commandes de services entre sous-groupes.</p>
+								</article>
+								<article>
+									<header>
+										<h2>WestNest a-t-il été testé ?</h2>
+									</header>
+									<a href="" class="image fit"><svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+										<g fill="none" fill-rule="evenodd">
+											<path d="M48.066 61.627c6.628 0 10.087-16.79 10.087-23.418 0-6.627-5.025-9.209-11.652-9.209C39.874 29 24 42.507 24 49.135c0 6.627 17.439 12.492 24.066 12.492z" fill-opacity=".24" fill="#75ABF3" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #0b3e82;"></path>
+											<path d="M34 52V35M40 52V42M46 52V35M52 52V42M28 52V28" stroke="#4D8EF7" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #52a6f7;"></path>
+										</g>
+									</svg>
+									</a>
+									<p>Absolument ! WestNest a été rigoureusement testé grâce à des simulations pour assurer son bon fonctionnement. WestNest est un projet pour entreprise qui a pour but de simplifier la communication entre différent sous-groupes et facilier les besoins specifiques lors des developpement des projets. </p>
+									<!--<ul class="actions special">
+										<li><a href="https://nfteam.netlify.app/arpon/accueil" class="button">view</a></li>
+									</ul>-->
+								</article>
+								
+									
+							</section>
+						<!-- Footer -->
+							
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+
+						<section class="split contact">
+
+							<section>
+								<h3>Email</h3>
+								<p><a href="mailto:nfteamhead@proton.me">nfteamhead@proton.me</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="https://www.linkedin.com/in/marc-garnier-de-boisgrollier-5a6893258/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="htps://github.com/Neckfire" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+			<script>
+				// Pour le drag & drop
+				function drag(event) {
+					event.dataTransfer.setData("text", event.target.id);
+				}
+			
+				function allowDrop(event) {
+					event.preventDefault();
+				}
+			
+				function drop(event, etat) {
+					event.preventDefault();
+					var tacheId = event.dataTransfer.getData("text");
+					var tacheElement = document.getElementById(tacheId);
+			
+					// Obtenez l'ID de la tâche à partir de l'élément glissé
+					var taskId = tacheId.split("_")[1];
+					console.log("Task ID:", taskId);
+					console.log("New State:", etat);
+					// Vérifiez si la zone est une zone d'archivage
+					if (event.target.classList.contains("archive-zone")) {
+						console.log("Archiving task:", taskId);
+						var xhr = new XMLHttpRequest();
+					xhr.open("POST", "/archive_task", true);
+					xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		
+					// Envoyez l'ID de la tâche à archiver
+					var data = JSON.stringify({ task_id: taskId });
+					xhr.send(data);
+		
+					// Supprimez la tâche de l'affichage
+					tacheElement.remove();
+					window.location.reload();
+					console.log("test");
+		
+					} else {
+						// Créez une requête AJAX pour mettre à jour l'état de la tâche dans la base de données
+						var xhr = new XMLHttpRequest();
+						xhr.open("POST", "/update_task_state", true);
+						xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+						console.log("test2");
+		
+						// Envoyez les données de mise à jour (ID de la tâche et nouvel état)
+						var data = JSON.stringify({ task_id: taskId, new_state: etat });
+						xhr.send(data);
+			
+						// Mettez à jour l'affichage de la colonne
+						var colonne = event.target;
+						colonne.querySelector("ul").appendChild(tacheElement);
+						tacheElement.remove();
+						window.location.reload();
+		
+					}
+				}
+				
+			</script>
+
+	</body>
+</html>

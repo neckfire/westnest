@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>WESTNEST</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Commande</h1>
+						<p></p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continuer</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="commande" class="logo">Commande</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="/">Acceuil</a></li>
+							<li class="active"><a href="commande">Commander un service</a></li>
+							<li><a href="editer_profil">Profil</a></li>
+							{% if user_id == 1 %}
+							<li><a href="{{ url_for('deconnexion_generale') }}">Déconnexion générale</a></li>
+							{% endif %}
+							<!--<li><a href="https://nfteam.netlify.app">NFT WEBSITE</a></li>-->
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="htps://github.com/Neckfire" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						{% if utilisateur %}
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<!--<span class="date">December, 2022</span>-->
+									<h2><a href="#">Commander un<br />
+										service</a></h2>
+										<form method="post" action="{{ url_for('commande') }}" onsubmit="setDefaultDate()">
+											<label for="id_subgroup">Sous-groupe:</label>
+											<select name="id_subgroup" id="id_subgroup" required>
+												{% for subgroup in subgroups %}
+													<option value="{{ subgroup[0] }}">{{ subgroup[1] }}</option>
+												{% endfor %}
+											</select><br><br>
+											
+											<label for="types_services">Type de service:</label>
+											<select name="types_services" id="types_services" required>
+												<!-- Options seront ajoutées dynamiquement par JavaScript -->
+											</select><br><br>
+											
+											<label for="description">Description de la commande :</label><br>
+											<textarea name="description" rows="4" cols="50" required></textarea><br><br>
+											
+											<label for="deadline">Date limite (si applicable) :</label>
+											<input type="date" name="deadline" required="true"><br><br>
+											
+											<input type="submit" value="Passer la commande">
+										</form>
+							</article>
+							{% else %}
+							<article class="post featured">
+								<h2>Vous devez être connecté pour passer une commande.</h2>
+								<a href="{{ url_for('connexion') }}">Se connecter</a>
+							</article>
+							{% endif %}
+						<!-- Posts -->
+							<section class="posts">
+								<article>
+									<header>
+										<h2>Comment WestNest fonctionne-t-il ?</a></h2>
+									</header>
+									<a href="" class="image fit"><svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+										<g fill="none" fill-rule="evenodd">
+											<path d="M48.066 61.627c6.628 0 10.087-16.79 10.087-23.418 0-6.627-5.025-9.209-11.652-9.209C39.874 29 24 42.507 24 49.135c0 6.627 17.439 12.492 24.066 12.492z" fill-opacity=".24" fill="#A0A6EE" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #121864;"></path>
+											<path d="M26 54l28-28" stroke="#838DEA" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #7da8e9;"></path>
+											<path d="M26 46l20-20M26 38l12-12M26 30l4-4M34 54l20-20M42 54l12-12" stroke="#767DE1" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #759fe1;"></path>
+											<path d="M50 54l4-4" stroke="#838DEA" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #7da8e9;"></path>
+										</g>
+									</svg></a>
+									<p>WestNest utilise un système de gestion de projet avancé. Les utilisateurs se connectent pour accéder à leur liste de tâches personnalisée, réparties équitablement parmi les membres du sous-groupe. L'onglet "Boutique" facilite les commandes de services entre sous-groupes.</p>
+									<!--<ul class="actions special">
+										<li><a href="doc/cv.pdf" class="button">CV</a></li>
+									</ul>-->
+								</article>
+								<article>
+									<header>
+										<h2>WestNest a-t-il été testé ?</h2>
+									</header>
+									<a href="" class="image fit"><svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+										<g fill="none" fill-rule="evenodd">
+											<path d="M48.066 61.627c6.628 0 10.087-16.79 10.087-23.418 0-6.627-5.025-9.209-11.652-9.209C39.874 29 24 42.507 24 49.135c0 6.627 17.439 12.492 24.066 12.492z" fill-opacity=".24" fill="#75ABF3" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #0b3e82;"></path>
+											<path d="M34 52V35M40 52V42M46 52V35M52 52V42M28 52V28" stroke="#4D8EF7" stroke-width="2" stroke-linecap="square" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #52a6f7;"></path>
+										</g>
+									</svg>
+									</a>
+									<p>Absolument ! WestNest a été rigoureusement testé grâce à des simulations pour assurer son bon fonctionnement. WestNest est un projet pour entreprise qui a pour but de simplifier la communication entre différent sous-groupes et facilier les besoins specifiques lors des developpement des projets. </p>
+								</article>
+								
+									
+							</section>
+						<!-- Footer -->
+							
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+
+						<section class="split contact">
+
+							<section>
+								<h3>Email</h3>
+								<p><a href="mailto:nfteamhead@proton.me">nfteamhead@proton.me</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="https://www.linkedin.com/in/marc-garnier-de-boisgrollier-5a6893258/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="htps://github.com/Neckfire" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+		<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+		
+	</body>
+</html>

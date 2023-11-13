@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connexion - WestNest</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <h1>Connexion</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="alert alert-{{ message[1] }}">{{ message[0] }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="post">
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br><br>
+
+        <label for="mot_de_passe">Mot de passe:</label>
+        <input type="password" name="mot_de_passe" required><br><br>
+
+        <input type="submit" value="Se connecter">
+    </form>
+    <p>Pas encore de compte? <a href="{{ url_for('creer_compte') }}">Créer un compte</a></p>
+</body>
+</html>
