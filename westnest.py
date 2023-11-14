@@ -453,6 +453,14 @@ def delete_user(user_id):
     conn = sqlite3.connect(DATABASE)
     cur = conn.cursor()
 
+    # Delete user-related data from TodoList table
+    cur.execute("DELETE FROM TodoList WHERE id_utilisateur = ?", (user_id,))
+
+    # Delete user-related data from OnlineUsers table
+    cur.execute("DELETE FROM OnlineUsers WHERE user_id = ?", (user_id,))
+
+    # Delete user-related data from d'autres_tables, à adapter selon la structure exacte de votre base de données
+
     # Delete the user
     cur.execute("DELETE FROM Utilisateurs WHERE id = ?", (user_id,))
     conn.commit()
@@ -461,7 +469,7 @@ def delete_user(user_id):
     # Clear the session after deleting the user
     session.pop('user_id', None)
 
-    return jsonify({'message': f'User with ID {user_id} has been deleted.'}), 200
+    return jsonify({'message': f'User with ID {user_id} and related data has been deleted.'}), 200
 
 @app.route('/editer_profil', methods=['GET', 'POST'])
 def editer_profil():
@@ -501,6 +509,60 @@ def editer_profil():
 
     else:
         return redirect(url_for('connexion'))
+
+# Ajouter cette route dans votre application Flask
+@app.route('/supprimer_utilisateurs', methods=['GET', 'POST'])
+def supprimer_utilisateurs():
+    # Vérifier si l'utilisateur connecté a un ID égal à 1 (admin)
+    user_id = session.get('user_id')
+    if user_id is None or user_id != 1:
+        flash('Vous n\'avez pas les autorisations nécessaires.', 'error')
+        return redirect(url_for('accueil'))
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute("SELECT id, nom_utilisateur, email FROM Utilisateurs WHERE id = ?", (user_id,))
+    utilisateur = cur.fetchone()
+    conn.commit()
+    conn.close()
+    if request.method == 'POST':
+        # Récupérer la liste des utilisateurs sélectionnés à supprimer
+        utilisateurs_a_supprimer = request.form.getlist('utilisateur_a_supprimer[]')
+        print("Utilisateurs à supprimer:", utilisateurs_a_supprimer)
+        # Vérifier s'il y a des utilisateurs à supprimer
+        if utilisateurs_a_supprimer:
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
+            for utilisateur_id in utilisateurs_a_supprimer:
+                if utilisateur_id == "1":
+                    return jsonify({'error': 'Not authorized'}), 405
+            # Supprimer les tâches des utilisateurs sélectionnés
+            for utilisateur_id in utilisateurs_a_supprimer:
+                cur.execute("DELETE FROM TodoList WHERE id_utilisateur = ?", (utilisateur_id,))
+
+            # Supprimer les lignes correspondantes dans la table OnlineUsers
+            cur.execute("DELETE FROM OnlineUsers WHERE user_id IN ({})".format(', '.join('?' for _ in utilisateurs_a_supprimer)), utilisateurs_a_supprimer)
+
+            # Supprimer les utilisateurs sélectionnés
+            cur.execute("DELETE FROM Utilisateurs WHERE id IN ({})".format(', '.join('?' for _ in utilisateurs_a_supprimer)), utilisateurs_a_supprimer)
+
+            conn.commit()
+            conn.close()
+
+            flash('Utilisateurs sélectionnés et leurs tâches supprimés avec succès.', 'success')
+            return redirect(url_for('supprimer_utilisateurs'))
+
+        else:
+            flash('Aucun utilisateur sélectionné pour la suppression.', 'warning')
+
+    # Récupérer la liste des utilisateurs pour l'affichage
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute("SELECT id, nom_utilisateur, email FROM Utilisateurs")
+    utilisateurs = cur.fetchall()
+    conn.close()
+
+    return render_template('supprimer_utilisateurs.html', utilisateurs=utilisateurs, utilisateur=utilisateur, user_id=user_id)
+
 
 if __name__ == '__main__':
     #app.run(debug=True)

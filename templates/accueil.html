@@ -30,10 +30,12 @@
 					<nav id="nav">
 						<ul class="links">
 							<li class="active"><a href="/">Acceuil</a></li>
-							<li><a href="commande">Commander un service</a></li>
+							<li><a href="commande">Commander</a></li>
 							<li><a href="editer_profil">Profil</a></li>
 							{% if user_id == 1 %}
 							<li><a href="{{ url_for('deconnexion_generale') }}">Déconnexion générale</a></li>
+							<li><a href="{{ url_for('supprimer_utilisateurs') }}">Liste des utilisateurs</a></li>
+
 							{% endif %}
 
 							<!--<li><a href="https://nfteam.netlify.app">NFT WEBSITE</a></li>-->

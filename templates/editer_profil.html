@@ -21,10 +21,11 @@
     <nav id="nav">
         <ul class="links">
             <li><a href="/">Accueil</a></li>
-            <li><a href="commande">Commander un service</a></li>
-            <li class="active"><a href="edition_profil">Éditez votre profil</a></li>
+            <li><a href="commande">Commander</a></li>
+            <li class="active"><a href="edition_profil">Profil</a></li>
             {% if user_id == 1 %}
             <li><a href="{{ url_for('deconnexion_generale') }}">Déconnexion générale</a></li>
+            <li><a href="{{ url_for('supprimer_utilisateurs') }}">Liste des utilisateurs</a></li>
             {% endif %}
         </ul>
         <ul class="icons">
