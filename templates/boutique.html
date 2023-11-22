@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boutique</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <h1>Boutique</h1>
+    <h2>Commandes en attente</h2>
+    <ul>
+        {% for order in orders %}
+        <li>
+            <strong>Type de service:</strong> {{ order[1] }}<br>
+            <strong>Description:</strong> {{ order[2 }}<br>
+            <strong>Utilisateur:</strong> {{ order[3 }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Passer une commande</h2>
+    <form method="post" action="/boutique">
+        <input type="text" name="type_service" placeholder="Type de service" required>
+        <input type="text" name="description" placeholder="Description" required>
+        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+        <input type="submit" value="Commander">
+    </form>
+</body>
+</html>

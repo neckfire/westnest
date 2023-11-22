@@ -1,0 +1,14 @@
+<h1>{{ projet.nom_projet }}</h1>
+<p>Description: {{ projet.description }}</p>
+<p>Date de début: {{ projet.date_debut }}</p>
+<p>Date de fin: {{ projet.date_fin }}</p>
+<p>Responsable: {{ projet.responsable_id }}</p>
+<p>État du projet: {{ projet.etat_projet }}</p>
+<p>Budget: {{ projet.budget }}</p>
+
+<h2>Tâches liées au projet</h2>
+<ul>
+    {% for tache in taches_projet %}
+        <li>{{ tache.tache }} - État: {{ tache.etat }} - Priorité: {{ tache.priorite }} - Deadline: {{ tache.deadline }}</li>
+    {% endfor %}
+</ul>
