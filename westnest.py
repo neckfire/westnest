@@ -124,7 +124,7 @@ def insert_subgroups():
     conn.close()
 
 # Insérer les sous-groupes
-#insert_subgroups()
+# insert_subgroups()
 
 @app.route('/')
 def accueil(): 
